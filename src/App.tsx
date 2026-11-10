@@ -7,6 +7,8 @@ import RegistroPage from './pages/publico/RegistroPage';
 import TiendaPage from './pages/publico/TiendaPage';
 import ProductosPage from './pages/panel/ProductosPage';
 import UsuariosPage from './pages/panel/UsuariosPage';
+import PosPage from './pages/panel/PosPage';
+import HistorialVentasPage from './pages/panel/HistorialVentasPage';
 
 export default function App() {
   return (
@@ -21,7 +23,9 @@ export default function App() {
       {/* Staff: ADMIN y CAJERO */}
       <Route element={<RutaProtegida roles={['ADMIN', 'CAJERO']} />}>
         <Route path="/panel" element={<PanelLayout />}>
-          <Route index element={<Navigate to="productos" replace />} />
+          <Route index element={<Navigate to="pos" replace />} />
+          <Route path="pos" element={<PosPage />} />
+          <Route path="ventas" element={<HistorialVentasPage />} />
           <Route path="productos" element={<ProductosPage />} />
 
           {/* Solo ADMIN */}
