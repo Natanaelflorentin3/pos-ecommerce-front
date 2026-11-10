@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { agregarAlCarrito, obtenerCatalogo } from '../../api/catalogo';
 import { mensajeError } from '../../api/axios';
 import { useCategorias } from '../../hooks/useCategorias';
+import { useRevalidacion } from '../../hooks/useRevalidacion';
 import { useAuthStore } from '../../store/authStore';
 import { FiltroCategorias } from '../../components/FiltroCategorias';
 import { formatoPrecio } from '../../utils/formato';
@@ -12,6 +13,7 @@ export default function TiendaPage() {
   const navigate = useNavigate();
   const usuario = useAuthStore((s) => s.usuario);
   const { categorias } = useCategorias();
+  const tick = useRevalidacion();
   const [categoriaId, setCategoriaId] = useState<number>();
   const [productos, setProductos] = useState<ProductoPublico[]>([]);
   const [cargando, setCargando] = useState(true);
@@ -32,7 +34,7 @@ export default function TiendaPage() {
     return () => {
       cancelado = true;
     };
-  }, [categoriaId]);
+  }, [categoriaId, tick]);
 
   const cambiarCategoria = (id?: number) => {
     setCargando(true);

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { obtenerInventario } from '../../api/catalogo';
 import { mensajeError } from '../../api/axios';
 import { useCategorias } from '../../hooks/useCategorias';
+import { useRevalidacion } from '../../hooks/useRevalidacion';
 import { usePosStore } from '../../store/posStore';
 import { FiltroCategorias } from '../FiltroCategorias';
 import { formatoPrecio } from '../../utils/formato';
@@ -12,6 +13,7 @@ export function ProductosPos({ recarga }: { recarga: number }) {
   const agregar = usePosStore((s) => s.agregar);
   const { categorias } = useCategorias();
   const [categoriaId, setCategoriaId] = useState<number>();
+  const tick = useRevalidacion();
   const [busqueda, setBusqueda] = useState('');
   const [productos, setProductos] = useState<ProductoInventario[]>([]);
   const [cargando, setCargando] = useState(true);
@@ -26,7 +28,7 @@ export function ProductosPos({ recarga }: { recarga: number }) {
     return () => {
       cancelado = true;
     };
-  }, [categoriaId, recarga]);
+  }, [categoriaId, recarga, tick]);
 
   // useMemo: el filtro por texto no se recalcula en cada render, solo si cambian productos o búsqueda
   const visibles = useMemo(() => {
