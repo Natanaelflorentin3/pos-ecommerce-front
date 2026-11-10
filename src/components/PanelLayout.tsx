@@ -1,14 +1,24 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { usePosStore } from '../store/posStore';
 import type { Rol } from '../types/auth';
 
 const enlaces: { to: string; texto: string; roles: Rol[] }[] = [
+  { to: '/panel/pos', texto: 'Punto de venta', roles: ['ADMIN', 'CAJERO'] },
+  { to: '/panel/ventas', texto: 'Historial de ventas', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/productos', texto: 'Productos', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/usuarios', texto: 'Usuarios', roles: ['ADMIN'] },
 ];
 
 export default function PanelLayout() {
   const { usuario, cerrarSesion } = useAuthStore();
+  const vaciarCarrito = usePosStore((s) => s.vaciar);
+
+  // Al salir se limpia el carrito del mostrador, para que no lo herede el próximo cajero
+  const salir = () => {
+    vaciarCarrito();
+    cerrarSesion();
+  };
 
   return (
     <div className="min-h-screen flex bg-gray-100 text-gray-900">
@@ -36,7 +46,7 @@ export default function PanelLayout() {
         <div className="mt-auto text-sm">
           <p className="truncate">{usuario?.email}</p>
           <p className="text-gray-400 mb-2">{usuario?.rol}</p>
-          <button onClick={cerrarSesion} className="w-full bg-gray-700 hover:bg-gray-600 rounded py-1">
+          <button onClick={salir} className="w-full bg-gray-700 hover:bg-gray-600 rounded py-1">
             Cerrar sesión
           </button>
         </div>
