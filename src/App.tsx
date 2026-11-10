@@ -5,17 +5,26 @@ import PanelLayout from './components/PanelLayout';
 import LoginPage from './pages/publico/LoginPage';
 import RegistroPage from './pages/publico/RegistroPage';
 import TiendaPage from './pages/publico/TiendaPage';
+import CarritoPage from './pages/publico/CarritoPage';
+import MisPedidosPage from './pages/publico/MisPedidosPage';
 import ProductosPage from './pages/panel/ProductosPage';
 import UsuariosPage from './pages/panel/UsuariosPage';
 import PosPage from './pages/panel/PosPage';
 import HistorialVentasPage from './pages/panel/HistorialVentasPage';
+import OrdenesPage from './pages/panel/OrdenesPage';
 
 export default function App() {
   return (
     <Routes>
-      {/* Público: tienda (visitantes y clientes) */}
+      {/* Tienda: visitantes y clientes */}
       <Route element={<TiendaLayout />}>
         <Route path="/" element={<TiendaPage />} />
+
+        {/* Solo CLIENTE */}
+        <Route element={<RutaProtegida roles={['CLIENTE']} />}>
+          <Route path="/carrito" element={<CarritoPage />} />
+          <Route path="/mis-pedidos" element={<MisPedidosPage />} />
+        </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegistroPage />} />
@@ -26,6 +35,7 @@ export default function App() {
           <Route index element={<Navigate to="pos" replace />} />
           <Route path="pos" element={<PosPage />} />
           <Route path="ventas" element={<HistorialVentasPage />} />
+          <Route path="ordenes" element={<OrdenesPage />} />
           <Route path="productos" element={<ProductosPage />} />
 
           {/* Solo ADMIN */}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { desactivarProducto, obtenerInventario } from '../../api/catalogo';
 import { mensajeError } from '../../api/axios';
 import { useCategorias } from '../../hooks/useCategorias';
+import { useRevalidacion } from '../../hooks/useRevalidacion';
 import { useAuthStore } from '../../store/authStore';
 import { FiltroCategorias } from '../../components/FiltroCategorias';
 import { ProductoFormModal } from '../../components/ProductoFormModal';
@@ -12,6 +13,7 @@ export default function ProductosPage() {
   const esAdmin = useAuthStore((s) => s.usuario?.rol === 'ADMIN');
   const { categorias } = useCategorias();
   const [categoriaId, setCategoriaId] = useState<number>();
+  const tick = useRevalidacion();
   const [productos, setProductos] = useState<ProductoInventario[]>([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
@@ -33,7 +35,7 @@ export default function ProductosPage() {
     return () => {
       cancelado = true;
     };
-  }, [categoriaId, recarga]);
+  }, [categoriaId, recarga, tick]);
 
   const recargar = () => {
     setCargando(true);

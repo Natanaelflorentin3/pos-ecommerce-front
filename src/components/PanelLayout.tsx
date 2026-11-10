@@ -6,6 +6,7 @@ import type { Rol } from '../types/auth';
 const enlaces: { to: string; texto: string; roles: Rol[] }[] = [
   { to: '/panel/pos', texto: 'Punto de venta', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/ventas', texto: 'Historial de ventas', roles: ['ADMIN', 'CAJERO'] },
+  { to: '/panel/ordenes', texto: 'Cola de órdenes', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/productos', texto: 'Productos', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/usuarios', texto: 'Usuarios', roles: ['ADMIN'] },
 ];
