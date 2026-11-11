@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { abrirCaja, obtenerCajaActual } from '../api/ventas';
+import { cerrarCaja } from '../api/cajas';
 import { mensajeError } from '../api/axios';
 import type { Caja } from '../types/ventas';
 
@@ -20,5 +21,12 @@ export function useCajaActual() {
     setCaja(nueva);
   };
 
-  return { caja, cargando, error, abrir };
+  // Devuelve la conciliación que calcula la API al cerrar
+  const cerrar = async (montoFinalDeclarado: number) => {
+    const conciliacion = await cerrarCaja(montoFinalDeclarado);
+    setCaja(null);
+    return conciliacion;
+  };
+
+  return { caja, cargando, error, abrir, cerrar };
 }

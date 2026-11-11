@@ -8,6 +8,7 @@ const enlaces: { to: string; texto: string; roles: Rol[] }[] = [
   { to: '/panel/ventas', texto: 'Historial de ventas', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/ordenes', texto: 'Cola de órdenes', roles: ['ADMIN', 'CAJERO'] },
   { to: '/panel/productos', texto: 'Productos', roles: ['ADMIN', 'CAJERO'] },
+    { to: '/panel/caja', texto: 'Caja y conciliación', roles: ['ADMIN'] },
   { to: '/panel/usuarios', texto: 'Usuarios', roles: ['ADMIN'] },
 ];
 
