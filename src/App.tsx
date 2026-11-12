@@ -12,6 +12,7 @@ import UsuariosPage from './pages/panel/UsuariosPage';
 import PosPage from './pages/panel/PosPage';
 import HistorialVentasPage from './pages/panel/HistorialVentasPage';
 import OrdenesPage from './pages/panel/OrdenesPage';
+import CajaPage from './pages/panel/CajaPage';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
           {/* Solo ADMIN */}
           <Route element={<RutaProtegida roles={['ADMIN']} />}>
             <Route path="usuarios" element={<UsuariosPage />} />
+                        <Route path="caja" element={<CajaPage />} />
           </Route>
         </Route>
       </Route>
